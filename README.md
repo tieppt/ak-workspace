@@ -1,6 +1,6 @@
 # NgEnt - Angular Project Structure
 
-Each NgModule is a feature, and should apply the following structure ([core](./src/app/core)):
+Each NgModule is a feature, and should apply the following structure ([core](./apps/ak-client/src/app/core)):
 
 ```
 ├── components
