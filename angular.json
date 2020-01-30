@@ -1,0 +1,144 @@
+{
+  "version": 1,
+  "projects": {
+    "ak-client": {
+      "projectType": "application",
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "apps/ak-client",
+      "sourceRoot": "apps/ak-client/src",
+      "prefix": "ak-workspace",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/ak-client",
+            "index": "apps/ak-client/src/index.html",
+            "main": "apps/ak-client/src/main.ts",
+            "polyfills": "apps/ak-client/src/polyfills.ts",
+            "tsConfig": "apps/ak-client/tsconfig.app.json",
+            "aot": false,
+            "assets": [
+              "apps/ak-client/src/favicon.ico",
+              "apps/ak-client/src/assets"
+            ],
+            "styles": ["apps/ak-client/src/styles.scss"],
+            "scripts": [],
+            "stylePreprocessorOptions": {
+              "includePaths": ["apps/ak-client/src/styles"]
+            }
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/ak-client/src/environments/environment.ts",
+                  "with": "apps/ak-client/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "5mb",
+                  "maximumError": "10mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "ak-client:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "ak-client:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "ak-client:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/ak-client/tsconfig.app.json",
+              "apps/ak-client/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!apps/ak-client/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/ak-client/jest.config.js",
+            "tsConfig": "apps/ak-client/tsconfig.spec.json",
+            "setupFile": "apps/ak-client/src/test-setup.ts"
+          }
+        }
+      }
+    },
+    "ak-client-e2e": {
+      "root": "apps/ak-client-e2e",
+      "sourceRoot": "apps/ak-client-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/ak-client-e2e/cypress.json",
+            "tsConfig": "apps/ak-client-e2e/tsconfig.e2e.json",
+            "devServerTarget": "ak-client:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "ak-client:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": ["apps/ak-client-e2e/tsconfig.e2e.json"],
+            "exclude": ["**/node_modules/**", "!apps/ak-client-e2e/**"]
+          }
+        }
+      }
+    }
+  },
+  "cli": {
+    "defaultCollection": "@nrwl/angular"
+  },
+  "schematics": {
+    "@nrwl/angular:application": {
+      "unitTestRunner": "jest",
+      "e2eTestRunner": "cypress"
+    },
+    "@nrwl/angular:library": {
+      "unitTestRunner": "jest"
+    }
+  },
+  "defaultProject": "ak-client"
+}

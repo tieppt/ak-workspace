@@ -1,0 +1,22 @@
+{
+  "npmScope": "ak-workspace",
+  "implicitDependencies": {
+    "angular.json": "*",
+    "package.json": {
+      "dependencies": "*",
+      "devDependencies": "*"
+    },
+    "tsconfig.json": "*",
+    "tslint.json": "*",
+    "nx.json": "*"
+  },
+  "projects": {
+    "ak-client": {
+      "tags": []
+    },
+    "ak-client-e2e": {
+      "tags": [],
+      "implicitDependencies": ["ak-client"]
+    }
+  }
+}
