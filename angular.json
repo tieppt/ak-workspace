@@ -20,7 +20,7 @@
             "main": "apps/ak-client/src/main.ts",
             "polyfills": "apps/ak-client/src/polyfills.ts",
             "tsConfig": "apps/ak-client/tsconfig.app.json",
-            "aot": false,
+            "aot": true,
             "assets": [
               "apps/ak-client/src/favicon.ico",
               "apps/ak-client/src/assets"
@@ -44,7 +44,6 @@
               "sourceMap": false,
               "extractCss": true,
               "namedChunks": false,
-              "aot": true,
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
