@@ -15,7 +15,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/apps/ak-client",
+            "outputPath": "dist/ak-client/browser",
             "index": "apps/ak-client/src/index.html",
             "main": "apps/ak-client/src/main.ts",
             "polyfills": "apps/ak-client/src/polyfills.ts",
@@ -95,6 +95,56 @@
             "jestConfig": "apps/ak-client/jest.config.js",
             "tsConfig": "apps/ak-client/tsconfig.spec.json",
             "setupFile": "apps/ak-client/src/test-setup.ts"
+          }
+        },
+        "server": {
+          "builder": "@angular-devkit/build-angular:server",
+          "options": {
+            "outputPath": "dist/ak-client/server",
+            "main": "apps/ak-client/server.ts",
+            "tsConfig": "apps/ak-client/tsconfig.server.json",
+            "stylePreprocessorOptions": {
+              "includePaths": ["apps/ak-client/src/styles"]
+            }
+          },
+          "configurations": {
+            "production": {
+              "outputHashing": "media",
+              "fileReplacements": [
+                {
+                  "replace": "apps/ak-client/src/environments/environment.ts",
+                  "with": "apps/ak-client/src/environments/environment.prod.ts"
+                }
+              ],
+              "sourceMap": false,
+              "optimization": true
+            }
+          }
+        },
+        "serve-ssr": {
+          "builder": "@nguniversal/builders:ssr-dev-server",
+          "options": {
+            "browserTarget": "ak-client:build",
+            "serverTarget": "ak-client:server"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "ak-client:build:production",
+              "serverTarget": "ak-client:server:production"
+            }
+          }
+        },
+        "prerender": {
+          "builder": "@nguniversal/builders:prerender",
+          "options": {
+            "browserTarget": "ak-client:build:production",
+            "serverTarget": "ak-client:server:production",
+            "routes": [
+              "/"
+            ]
+          },
+          "configurations": {
+            "production": {}
           }
         }
       }
